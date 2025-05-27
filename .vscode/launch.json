@@ -1,0 +1,17 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0", 
+    //Condiguracion para abrir en el buscador
+    "configurations": [ 
+        
+        {
+            "type": "msedge",//Indico que se abra en Edge (Espero que funcione)
+            "request": "launch", // Inicia una nueva secion de depuracion
+            "name": "Launch Edge against localhost", //Nobre descriptivo de la configuraicon
+            "url": "http://localhost:8080", //URL del servidor(supongo)
+            "webRoot": "${workspaceFolder}"//Lugar de donde mandar y traer archivos
+        }
+    ]
+}
