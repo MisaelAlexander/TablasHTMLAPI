@@ -23,10 +23,10 @@ function CrearTabla(Datos)
     tabla.innerHTML += `
     <tr>
       <td>${persona.id}</td>
-      <td>${persona.edad}</td>
       <td>${persona.nombre}</td>
-      <td>${persona["correo "]}</td> <!-- Acceso correcto a campo con espacio -->
       <td>${persona.apellido}</td>
+      <td>${persona.edad}</td>
+       <td>${persona["correo "]}</td> <!-- Acceso correcto a campo con espacio -->
       <td>
         <button onclick="editar(${persona.id})">Editar</button>
         <button onclick="eliminar(${persona.id})">Eliminar</button>
