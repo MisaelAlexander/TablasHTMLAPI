@@ -18,7 +18,7 @@ function CrearTabla(Datos)
     const tabla = document.querySelector("#tabla tbody");
     // para inyectar codigo HTML usamos "innerHTML"
   tabla.innerHTML = ""; // Vaciamos  el contenido de la tabla
-  //Datos apra cada fila
+  //Datos para cada fila
   Datos.forEach((persona) => {
     tabla.innerHTML += `
     <tr>
@@ -58,3 +58,59 @@ function eliminar(id) {
 
 // Llamamos la función para que cargue los datos apenas se cargue la página
 ObtenerMiembros();
+
+
+
+
+//Proceso para agregar  un nuevo registro
+const modal = document.getElementById("modalAgregar");//Cuadro de dialogo
+const btnAgregar = document.getElementById("btnAbrirModal");//Boton de abrir modal
+const btnCerrar = document.getElementById("btnCerrarModal");//Boton para cerrar
+
+//Cuando la persona le de click se abrira el modal
+btnAgregar.addEventListener("click",()=>{
+  modal.showModal();
+});
+
+//Cuando la persona le de click se abrira el modal
+btnCerrar.addEventListener("click",()=>{
+  modal.close();
+});
+
+//Agregar un nuevo integrante desde el formulari
+document.getElementById("frmAgregarIntegrante").addEventListener("submit",async e => {
+  e.preventDefault();//Evita que el formulario se envie
+  
+  //Capturamos los valores del formulario
+  const nombre =document.getElementById("nombre").value.trim();
+  const apellido =document.getElementById("apellido").value.trim();
+  const edad =document.getElementById("edad").value.trim();
+  const correo =document.getElementById("email").value.trim();
+  //Validacion basico
+  if(!nombre || !apellido || !edad || !correo)
+  {
+    alert("Complete todos los campos");
+    return;//Evita que el codigo siga
+  }
+  //Llamamos a la API para enviarle el usuario
+  const respuesta = await fetch(API_URL, {
+    method: "POST", 
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({nombre,apellido,edad,correo})
+  });
+  if(respuesta.ok)
+  {
+    alert(correo)
+    alert("El Registro fue agregado correctamente")
+    //Limpiar Formulario
+    document.getElementById("frmAgregarIntegrante").reset();
+    //Cerrar Formulario
+    modal.close();
+    //Recargar la tabla
+    ObtenerMiembros();
+  }
+  else
+  {
+    alert("Error al agregar")
+  }
+});//Fin del formulario
