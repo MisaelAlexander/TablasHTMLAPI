@@ -26,7 +26,7 @@ function CrearTabla(Datos)
       <td>${persona.nombre}</td>
       <td>${persona.apellido}</td>
       <td>${persona.edad}</td>
-       <td>${persona["correo "]}</td> <!-- Acceso correcto a campo con espacio -->
+       <td>${persona.correo }</td> <!-- Acceso correcto a campo con espacio -->
       <td>
         <button onclick="editar(${persona.id})">Editar</button>
         <button onclick="eliminar(${persona.id})">Eliminar</button>
@@ -96,7 +96,7 @@ document.getElementById("frmAgregarIntegrante").addEventListener("submit",async 
   const respuesta = await fetch(API_URL, {
     method: "POST", 
     headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({nombre,apellido,edad,correo})
+    body: JSON.stringify({nombre,apellido,edad,correo })
   });
   if(respuesta.ok)
   {
