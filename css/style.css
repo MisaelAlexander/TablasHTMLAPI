@@ -35,3 +35,8 @@
     background-color: goldenrod;
     border: none;
 }
+
+.tabla-scroll
+{
+    overflow-x: auto;
+}

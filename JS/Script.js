@@ -39,10 +39,11 @@ function CrearTabla(Datos)
 // Función para editar (a futuro puedes mostrar un formulario para actualizar)
 function editar(id) {
   alert("Función para editar a la persona con ID: " + id);
+  modal.showModal();
 }
 // Función para eliminar un registro
 function eliminar(id) {
-  if (confirm("¿Estás seguro de eliminar a la persona con ID: " + id + "?")) {
+    if (confirm("¿Estás seguro de eliminar a la persona con ID: " + id + "?")) {
     fetch(`${API_URL}/${id}`, {
       method: "DELETE"
     })
@@ -100,8 +101,11 @@ document.getElementById("frmAgregarIntegrante").addEventListener("submit",async 
   });
   if(respuesta.ok)
   {
-    alert(correo)
-    alert("El Registro fue agregado correctamente")
+    Swal.fire({
+      title: "Se agrego a la persona",
+      text: "La persona: " + nombre + " " + apellido +". Fue agregada",
+      icon: "success"
+    });
     //Limpiar Formulario
     document.getElementById("frmAgregarIntegrante").reset();
     //Cerrar Formulario
@@ -114,3 +118,20 @@ document.getElementById("frmAgregarIntegrante").addEventListener("submit",async 
     alert("Error al agregar")
   }
 });//Fin del formulario
+
+async function EliminarRegistros(ID)
+{
+  if (confirm("¿Estás seguro de eliminar a la persona con ID: " + id + "?")) {
+    /*Recordar usar la pagina que usamos para crear la api para ver los comandos de api*/
+    await fetch(`${API_URL}/${id}`, {
+      method: "DELETE"
+    })
+    .then(() => {
+      alert("Registro eliminado correctamente");
+      ObtenerMiembros(); // recargar la tabla
+    })
+    .catch(error => {
+      console.error("Error al eliminar:", error);
+    });
+  }
+}
