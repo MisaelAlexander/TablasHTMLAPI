@@ -28,19 +28,15 @@ function CrearTabla(Datos)
       <td>${persona.edad}</td>
        <td>${persona.correo }</td> <!-- Acceso correcto a campo con espacio -->
       <td>
-        <button onclick="editar(${persona.id})">Editar</button>
+        <button onclick="AbrirlModalEditar(${persona.id}, '${persona.nombre}','${persona.apellido}','${persona.edad}','${persona.correo }')">Editar</button>
         <button onclick="eliminar(${persona.id})">Eliminar</button>
       </td>
     </tr>
     `;
   });
 }
+//Si el valor es String se pone en comillas simples
 
-// Función para editar (a futuro puedes mostrar un formulario para actualizar)
-function editar(id) {
-  alert("Función para editar a la persona con ID: " + id);
-  modal.showModal();
-}
 // Función para eliminar un registro
 function eliminar(id) {
     if (confirm("¿Estás seguro de eliminar a la persona con ID: " + id + "?")) {
@@ -119,6 +115,8 @@ document.getElementById("frmAgregarIntegrante").addEventListener("submit",async 
   }
 });//Fin del formulario
 
+
+//Funcion Eliminar
 async function EliminarRegistros(ID)
 {
   if (confirm("¿Estás seguro de eliminar a la persona con ID: " + id + "?")) {
@@ -135,3 +133,55 @@ async function EliminarRegistros(ID)
     });
   }
 }
+
+
+//Funcion Agregar
+const modalEditar = document.getElementById("modalEditar");//Modal
+const btnCerrarEditar = document.getElementById("btnCerrarEditar");//X para cerrar
+
+//EventListener para abrr editar
+function AbrirlModalEditar(id,nombre,apellido,edad,correo)
+{
+  //Colocamos directamente el valor a los input
+  document.getElementById("idEditar").value = id;
+  document.getElementById("nombreEditar").value = nombre;
+  document.getElementById("apellidoEditar").value = apellido;
+  document.getElementById("edadEditar").value = edad;
+  document.getElementById("emailEditar").value = correo;
+  modalEditar.showModal();
+}
+//EventListener para cerrar el modal Editar
+btnCerrarEditar.addEventListener("click",()=>{
+  modalEditar.close();
+});
+
+document.getElementById("frmEditarIntegrante").addEventListener("submit", async e =>{
+  e.preventDefault();
+  const id = document.getElementById("idEditar").value;
+  const nombre = document.getElementById("nombreEditar").value.trim();
+  const apellido = document.getElementById("apellidoEditar").value.trim();
+  const edad = document.getElementById("edadEditar").value.trim();
+  const correo = document.getElementById("emailEditar").value.trim();
+
+  //Validar campos que esten llenos
+  if(!nombre || !apellido || !edad || !correo || !id)
+  {
+    alert("Complete todos los campos");
+    return;
+  }
+
+  const respuesta = await fetch(`${API_URL}/${id}`, {
+    method: "PUT",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({edad,correo,nombre,apellido})
+  });
+  if(respuesta.ok)
+  {
+    alert("Registro actualizado Correctamente ヾ(•ω•`)o")
+    modalEditar.close();//Cerramos el modal
+    ObtenerMiembros();//Recargar Lista
+  }
+  else{
+    alert("Error al actalizar /(ㄒoㄒ)/~~");
+  }
+});

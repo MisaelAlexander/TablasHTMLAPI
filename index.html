@@ -58,6 +58,25 @@
             </form>
         </article>
     </dialog>
+
+    <!--Dialog Actualizar-->
+    <dialog id="modalEditar">
+        <article>
+            <header>
+                <a href="#" class="close" id="btnCerrarEditar"></a>
+                <h3>Actualizar Integrantres</h3>
+            </header>
+            <form id="frmEditarIntegrante">
+                <input type="hidden" id="idEditar">
+                <input type="text" id="nombreEditar" placeholder="Nombre" required>
+                <input type="text" id="apellidoEditar" placeholder="Apellido" required>
+                <input type="number" placeholder="Edad" id="edadEditar" required>
+                <input type="email" id="emailEditar" placeholder="Correo electrónico" required>
+                <button type="submit" class="contrast">Guardar</button>
+            </form>
+        </article>
+    </dialog>
+
     <!--Boton flotante para agregar registros-->
     <!--title es para el texto que aparecera cuando te pongas arriba-->
     <button class="add-button" id="btnAbrirModal" title="Agregar Integrantes">
